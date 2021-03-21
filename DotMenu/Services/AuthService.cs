@@ -3,17 +3,23 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using DotMenu.Models;
-using DotMenu.Providers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace DotMenu.Services
 {
-    public static class AuthService
+    public class AuthService
     {
-        public static string GenerateToken(User user)
+        private readonly string _secretKey;
+        public AuthService(IConfiguration configuration)
+        {
+            _secretKey = configuration.GetValue<string>("SecretKey");
+        }
+
+        public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(AppSettingsProvider.AppSetting("SecretKey"));
+            var key = Encoding.ASCII.GetBytes(this._secretKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]

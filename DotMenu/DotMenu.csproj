@@ -15,6 +15,20 @@
       <Compile Remove="WeatherForecast.cs" />
       <Compile Remove="Controllers\WeatherForecastController.cs" />
       <Compile Remove="Controllers\Auth.cs" />
+      <Compile Remove="Providers\**" />
+      <Compile Remove="AppSettingsProvider.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Providers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Providers\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Providers\**" />
     </ItemGroup>
 
 </Project>
