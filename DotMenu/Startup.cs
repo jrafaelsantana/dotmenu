@@ -1,12 +1,16 @@
+using System;
 using System.Text;
+using DotMenu.Repositories.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace DotMenu
 {
@@ -45,6 +49,15 @@ namespace DotMenu
                         ValidateAudience = false
                     };
                 });
+
+            services.AddDbContextPool<DotmenuDBContext>(
+                dbContextOptions => dbContextOptions
+                    .UseMySql(
+                        Configuration.GetConnectionString("MySql"), 
+                        new MySqlServerVersion(new Version(8, 0, 21)),
+                        mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend))
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
