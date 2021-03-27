@@ -26,6 +26,7 @@
       <Compile Remove="Controllers\Auth.cs" />
       <Compile Remove="Providers\**" />
       <Compile Remove="AppSettingsProvider.cs" />
+      <Compile Remove="Repositories\UserRepository.cs" />
     </ItemGroup>
 
     <ItemGroup>

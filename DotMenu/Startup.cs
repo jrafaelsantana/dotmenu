@@ -1,6 +1,8 @@
 using System;
 using System.Text;
+using DotMenu.Repositories;
 using DotMenu.Repositories.Context;
+using DotMenu.Repositories.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +29,10 @@ namespace DotMenu
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DotMenu.Services.AuthService>();
+
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IUserRepository, UserRepository>();
+
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "DotMenu", Version = "v1"}); });
 
