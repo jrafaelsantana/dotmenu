@@ -6,9 +6,9 @@ using DotMenu.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DotMenu.Services
+namespace DotMenu.Services.Implementation
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly string _secretKey;
         public AuthService(IConfiguration configuration)

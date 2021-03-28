@@ -3,6 +3,8 @@ using System.Text;
 using DotMenu.Repositories;
 using DotMenu.Repositories.Context;
 using DotMenu.Repositories.Implementation;
+using DotMenu.Services;
+using DotMenu.Services.Implementation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,7 @@ namespace DotMenu
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<DotMenu.Services.AuthService>();
+            services.AddTransient<IAuthService, AuthService>();
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserRepository, UserRepository>();
